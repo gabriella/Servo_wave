@@ -68,12 +68,19 @@ void ServoWave::update(){
 //   servos[i].write(servoPositions[i]); 
 //  }
 
-//for(int i = numservos-1; i > 0; i--){
-//    servoValues[i] = servoValues[i-1];
-//  }
+
 
 for(int i=0;i<numServos;i++){//wtf
-    servoPositions[i] =amplitude;//add values for all servos depending on values in the constructor
+   // servoPositions[i] = amplitude;//add values for all servos depending on values in the constructor
+    
+   for(int i = numServos-1; i > 0; i--){
+    servoPositions[i] = servoPositions[i-1];
+    servoPositions[i].write(amplitude);
+  }
+    //amplitude = servoPositions[i].sin(period);
+    
+    //period = 
+    
  /*   
  numServos = 
   amplitude = 
@@ -83,6 +90,20 @@ for(int i=0;i<numServos;i++){//wtf
  
 
 }
+}
+float setPeriod(){
+  for(int i=0;i<numServos;i++){
+  //period = //period is the time it takes for one complete wave cycle - so how do I say this
+}
+
+float setAmplitude(){
+  for(int i=0;i<numServos;i++){
+    amplitude = servoPositions[i]*sin(period);
+    return amplitude;
+}
+
+float setWavelength(){
+  //wavelength is the number of servos the wave has to move down until it resets
 }
   
   
