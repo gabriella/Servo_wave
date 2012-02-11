@@ -33,7 +33,10 @@ void loop(){
   servoWave.move();
   //for(int i=0;i<servoWave.numServos;i++){
   // Serial.println("here");
-Serial.println(servoWave.amplitude);
+  Serial.print("Amplitude: ");
+  Serial.print(servoWave.amplitude);
+  Serial.print(", Sin(Period): ");
+  Serial.println(sin(servoWave.period));
  //why am i only getting ninety for this ugh
 }
 

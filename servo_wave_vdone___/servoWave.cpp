@@ -52,15 +52,18 @@ void ServoWave::update(){
     //return a foloat based on numservos sin(period) is 
     //period = period + time;
     period = freq+period;
+    freq++;
+    //have freq have to do with servoPosition
 //Serial.println(sin(period));
-    calcAmp(period);
+    amplitude = calcAmp(period);
   }
 }
+
 //update the servoPosition array so that it corresponds with where it is at
 float ServoWave::calcAmp(int p){
-  amplitude =  90*sin(p)+90;
+  int a =  90*sin(p)+90;
 // Serial.println(amplitude);
-  return amplitude;
+  return a;
 }
 
 void ServoWave::move(){
@@ -72,9 +75,9 @@ void ServoWave::move(){
   
   for(int i=0;i<numServos;i++){//wtf
     //  servoPositions[i] =amplitude;
-    amplitude = servoPositions[currentServo];
+    servoPositions[currentServo] = amplitude;
 
-    servos[i].write(amplitude);
+    servos[i].write(servoPositions[currentServo] );
     currentServo++;
     if(currentServo>numServos-1)
     {
