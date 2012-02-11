@@ -18,8 +18,8 @@ ServoWave::ServoWave(int _numServos, int _amplitude, long _period, int _waveleng
   period = _period;
   wavelength = _wavelength;
 
+//initialize the servos
   //servoPositions = new int[numServos];
-  
     //initializr the servo array
   //servos = new Servo[numServos];
 
@@ -29,18 +29,7 @@ ServoWave::ServoWave(int _numServos, int _amplitude, long _period, int _waveleng
   for(int i=0;i<numServos;i++){//wtf
     servoPositions[i] = 90; // starting position for all servos. could be passed as an argument 
 }
-//  for(int i=0;i<numServos;i++)
-//  {
-//   servos[i]= 
-//  }
 
-
-
-
-//SO MANY QUESTIONS: when void, when to return something; how to set something and initialize something
-
-
-//Classname::Functionname
 
 //set currentServo to 0
 /*

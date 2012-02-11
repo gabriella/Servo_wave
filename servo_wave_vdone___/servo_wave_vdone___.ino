@@ -13,7 +13,7 @@ ServoWave servoWave;
 
 void setup(){
   Serial.begin(9600);
-  servoWave = ServoWave(15, 90, 200, 2);
+  servoWave = ServoWave(15, 90, 60, 2);
   //   int _numServos, int _amplitude, long _period, int _wavelength
   
  //numservos = number of servos in the unit
@@ -34,7 +34,7 @@ void loop(){
   //for(int i=0;i<servoWave.numServos;i++){
   // Serial.println("here");
 Serial.println(servoWave.amplitude);
- 
+ //why am i only getting ninety for this ugh
 }
 
 
