@@ -12,9 +12,10 @@ class ServoWave
   public:
   //constructor creates an INSTNACE of the class (has the same name as the class)
    ServoWave();
-   ServoWave(int _numServos, int _amplitude, long _period, int _wavelength);
+   ServoWave(int _numServos, int _amplitude, long _period, int _wavelength, int _ampMax);
    ~ServoWave();
    
+   int ampMax;
    int numServos;
    int amplitude;//0=90
    long period;//time in millis

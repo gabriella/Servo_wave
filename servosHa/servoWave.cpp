@@ -12,11 +12,12 @@ ServoWave::~ServoWave() {
   delete servos;
 }
 
-ServoWave::ServoWave(int _numServos, int _amplitude, long _period, int _wavelength){
+ServoWave::ServoWave(int _numServos, int _amplitude, long _period, int _wavelength, int _ampMax){
   numServos = _numServos;//servos of the whole unit
   amplitude = _amplitude;//height of wave 
   period = _period; //in milliseconds
   wavelength = _wavelength;//how many servos long the wave will be
+  ampMax=_ampMax;
 
   //initialize the servos
   //servoPositions = new int[numServos];
@@ -110,18 +111,18 @@ void ServoWave::move(){
   // for all the servos from 0 to numServos
   // lookup a position i.e. servoPositions[i]
   // and write that to the corresponding servo, i.e. servos[i].write(...)
-\
+
   //HERE IS WHERE I CAN USE THE WAVELENGTH -= GET THE POSITION OF THE 
 //int factor = 90;//just add this in order to get back to a servoWrite value of 0-180
 int dir = 0;
   int curAngle = servos[0].read();
   int newAngle= calculateAngle();;
-  float dAngle = amplitude / steps;
-  if (curAngle + dAngle > (amplitude+90) ) {
+  float dAngle = ampMax / steps;
+  if (curAngle + dAngle > (ampMax+90) ) {
     dir = -1;
     newAngle = curAngle - dAngle;
     
-  } else if (curAngle + dAngle < (90-amplitude) ) {
+  } else if (curAngle + dAngle < (90-ampMax) ) {
     newAngle = curAngle + dAngle;
      dir=1;
   }
