@@ -77,6 +77,10 @@ long counter=0 ;
     lastPosition = amplitude;
 
     amplitude-=180/wavelength; 
+    
+    //try to add more steps
+    //change 180 to be a different steps
+    //set current servos to zero and return
   }
  }
  counter++;

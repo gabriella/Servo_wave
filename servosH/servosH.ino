@@ -5,7 +5,7 @@
 Servo servo1;
 Servo servo2;
 ServoWave servoWave;
-int counter;
+
 //int period  = 250 milliseconds;//how long until the wave repeats 
 
 
@@ -13,7 +13,7 @@ int counter;
 
 void setup(){
   Serial.begin(9600);
-  servoWave = ServoWave(15, 90, 200, 10);
+  servoWave = ServoWave(15, 90, PI/3, 2);
   //   int _numServos, int _amplitude, long _period, int _wavelength
   
  //numservos = number of servos in the unit
@@ -28,9 +28,7 @@ void setup(){
 
 void loop(){
 //for(int i=0;i<15;i++){
-  if (counter%1000==0){
   servoWave.update(); 
-  }
  // servoWave.servoPositons;
   servoWave.move();
   //for(int i=0;i<servoWave.numServos;i++){
@@ -38,12 +36,9 @@ void loop(){
   Serial.print("Amplitude: ");
   Serial.println(servoWave.amplitude);
 //  Serial.print(", Sin(Period): ");
-//  Serial.println(sin(servoWave.period));
-//  Serial.print("sin times one eighty: ");
-//  Serial.println(abs(sin(TWO_PI)*180));
+ // Serial.println(servoWave.currentAngle);
  //why am i only getting ninety for this ugh
 //  }
-delay(15);
 }
 
 

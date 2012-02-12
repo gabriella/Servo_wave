@@ -13,10 +13,10 @@ ServoWave::~ServoWave() {
 }
 
 ServoWave::ServoWave(int _numServos, int _amplitude, long _period, int _wavelength){
-  numServos = _numServos;
-  amplitude = _amplitude;
-  period = _period;
-  wavelength = _wavelength;
+  numServos = _numServos;//servos of the whole unit
+  amplitude = _amplitude;//height of wave 
+  period = _period; //in milliseconds
+  wavelength = _wavelength;//how many servos long the wave will be
 
   //initialize the servos
   //servoPositions = new int[numServos];
@@ -47,7 +47,7 @@ void ServoWave::addServo(Servo servo, int startingPosition){
 void ServoWave::update(){
   //amplitude +=0.02;
   //float x =amplitude;
-
+/*
   for(int i=0;i<numServos;i++){
     int changer = 1;
 
@@ -56,11 +56,11 @@ period = period + changer;
    amplitude = map(amplitude, 0,1,0,180);
    
     changer=changer+0.1;
-    
+    */
    // servoPositions[i] = 180; 
     
    //  amplitude = calcAmp(period);
-  }
+  //}
     
     
     //numpositions spaced in time
@@ -106,27 +106,53 @@ float ServoWave::calcAmp(int p){
 }
 
 void ServoWave::move(){
+  
   // for all the servos from 0 to numServos
   // lookup a position i.e. servoPositions[i]
   // and write that to the corresponding servo, i.e. servos[i].write(...)
 
   //HERE IS WHERE I CAN USE THE WAVELENGTH -= GET THE POSITION OF THE 
+//int factor = 90;//just add this in order to get back to a servoWrite value of 0-180
 
-  for(int i=0;i<numServos;i++){//wtf
+for(int i=0;i<numServos;i++){
   
-  
-  
-  
-  
-    //  servoPositions[i] =amplitude;
-    servoPositions[currentServo] = amplitude;
+  int lastAng = 0;
+int currentAngle=servoPositions[i];// = currentPositions;see that i set servoPositions ot be 90
+int angleChange = lastAng-currentAngle;
 
-    servos[i].write(servoPositions[currentServo] );
-    currentServo++;
-    if(currentServo>numServos-1)
-    {
-      currentServo=0; 
-    }
-  }
+ angleChange = calculateAngle(); 
+ currentAngle-=angleChange;
+ 
+ lastAng = currentAngle;
+ servos[i].write(servoPositions[currentAngle]);
+ Serial.println(servoPositions[currentAngle]);
 }
 
+}
+int ServoWave::calculateAngle(){
+  
+  //tan(angle) = amp / wavelength/2
+  //  angle atan(tan(angle))
+  //amplitude in units
+  
+  //wavelentgh = wavelng
+  
+  //if abs(theta)>=45...sitch direction
+  
+  //steps, 
+  
+  //number of steps will determine how fast - period?
+  
+  //w/4 is steps needed for one fourth the wavelength
+  //do math on first servo
+  //iterate
+  
+  for(int i=0;i<numServos;i++){
+      period*=i;
+  int a = atan(amplitude/wavelength/2);
+
+  //int a = sin(frequency);
+    return a;
+    
+  }
+}
