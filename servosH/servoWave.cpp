@@ -114,8 +114,22 @@ void ServoWave::move(){
   //HERE IS WHERE I CAN USE THE WAVELENGTH -= GET THE POSITION OF THE 
 //int factor = 90;//just add this in order to get back to a servoWrite value of 0-180
 
-for(int i=0;i<numServos;i++){
-  
+  int curAngle = servos[0].read();
+  int newAngle;
+  float dAngle = amplitude / steps;
+  if (curAngle + dAngle > (amplitude+90) ) {
+    dir = -1;
+    newAngle = curAngle - dAngle;
+    
+  } else {
+    newAngle = curAngle + dAngle;
+  }
+for(int i=1;i<numServos;i++){
+  newAngle = curAngle;
+  curAngle = servos[i].read();
+  servos[i].write(newAngle);
+}
+  /*
   int lastAng = 0;
 int currentAngle=servoPositions[i];// = currentPositions;see that i set servoPositions ot be 90
 int angleChange = lastAng-currentAngle;
@@ -125,7 +139,8 @@ int angleChange = lastAng-currentAngle;
  
  lastAng = currentAngle;
  servos[i].write(servoPositions[currentAngle]);
- Serial.println(servoPositions[currentAngle]);
+ //Serial.println(servoPositions[currentAngle]);*/
+ 
 }
 
 }
@@ -146,13 +161,24 @@ int ServoWave::calculateAngle(){
   //w/4 is steps needed for one fourth the wavelength
   //do math on first servo
   //iterate
-  
-  for(int i=0;i<numServos;i++){
-      period*=i;
-  int a = atan(amplitude/wavelength/2);
+long theta=1;
+theta = theta+period*millis();
+//Serial.println(theta);
 
+  int a = degrees(sin(radians(theta)));
+  Serial.println(a);
+  //a = map(a, -500,500,0,180);
+ 
+ 
+ /*
+ / for(int i=0;i<numServos;i++){
+      period*=i;
+ // int a = atan(tan(radians(amplitude/wavelength/2)));
+  Serial.print(a);
+  a = degrees(a);
+Serial.print(a);
   //int a = sin(frequency);
     return a;
-    
+*/    
   }
-}
+

@@ -20,6 +20,7 @@ class ServoWave
    long period;//time in millis
    int wavelength;//in numb of servos
    Servo servos[15];
+   int steps = 100;
    
   int currentServo;//index in servos
   int servoPositions[15];//array of ints representing the current pos of all servos
