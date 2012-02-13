@@ -116,14 +116,20 @@ void ServoWave::move(){
 //int factor = 90;//just add this in order to get back to a servoWrite value of 0-180
 int dir = 0;
 
-    //servos[0].write(curAngle);
-  int curAngle = servos[0].read();
+
+
   
   //dont change this as this will be what inlusnces the next servo
   
 //Serial.println(curAngle);
 int newAngle=calculateAngle();
+    servos[0].write(newAngle);
+      int curAngle = servos[0].read();
+    Serial.print("curAng = ");
+    Serial.print(curAngle);
+    Serial.print("newan= ");
 Serial.println(newAngle);
+
   float dAngle = ampMax / steps;
   if (curAngle + dAngle > (ampMax+90) ) {
     dir = -1;
