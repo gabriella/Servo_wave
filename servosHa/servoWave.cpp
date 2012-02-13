@@ -160,12 +160,15 @@ for(int i=1;i<numServos;i++){
   newAngle = curAngle;
 
    curAngle = servos[i].read();
+   //wait why i'm confused why i did this
+   
+   
 //  Serial.println(
   servos[i].write(newAngle);
   Serial.print(" positions ");
-  Serial.print(servoPositions[i]);
+  Serial.print(i);
   Serial.print(" curAngle ");
-  Serial.print(servos[i].read());
+  Serial.print(newAngle);//servos[i].read());
 }
   /*
   int lastAng = 0;
