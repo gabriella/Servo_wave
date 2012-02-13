@@ -27,7 +27,7 @@ ServoWave::ServoWave(int _numServos, int _amplitude, long _period, int _waveleng
   //set currentServo to 0
   int currentServo = 0;
 int lastPosition=-1;
-int steps = 10;
+int steps = 5;
 
   //initialize servoPosition array
   for(int i=0;i<numServos;i++){//wtf
@@ -127,39 +127,45 @@ int dir = 0;
 int newAngle=calculateAngle();
     servos[0].write(newAngle);
       int curAngle = servos[0].read();
-    Serial.print("curAng = ");
+    Serial.print(" curAng = ");
     Serial.print(curAngle);
 //    Serial.print("newan= ");
 //Serial.println(newAngle);
 
-  int dAngle = 10;// ampMax / steps;//distance of one unit to be changed;
-  Serial.print("steps = ");
+  float dAngle =10;//  ampMax / steps;//distance of one unit to be changed;
+  Serial.print(" steps = ");
   Serial.print(steps);
-  Serial.print("ampmax");
+  Serial.print(" ampmax = ");
   Serial.print(ampMax);
- Serial.print("dangle = ");
+ Serial.print(" dangle (ampmax/steps) = ");
  Serial.println(dAngle);
  
   if ((curAngle + dAngle) > (ampMax+90) ) {
     dir = -1;
-    newAngle = curAngle - dAngle;
+    //newAngle = curAngle - dAngle;
     
   } else if (curAngle + dAngle < (90-ampMax) ) {
-    newAngle = curAngle + dAngle;
+   // newAngle = curAngle + dAngle;
      dir=1;
   }
+  Serial.print(" dir ");
  Serial.print(dir);
  
  
-  
-    
+  newAngle = curAngle+dAngle*dir;
+    Serial.print(" newAngle = ");
+    Serial.print(newAngle);
     
 for(int i=1;i<numServos;i++){
   newAngle = curAngle;
 
-  curAngle = servos[i].read();
+   curAngle = servos[i].read();
 //  Serial.println(
   servos[i].write(newAngle);
+  Serial.print(" positions ");
+  Serial.print(servoPositions[i]);
+  Serial.print(" curAngle ");
+  Serial.print(servos[i].read());
 }
   /*
   int lastAng = 0;
