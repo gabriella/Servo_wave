@@ -115,8 +115,12 @@ void ServoWave::move(){
   //HERE IS WHERE I CAN USE THE WAVELENGTH -= GET THE POSITION OF THE 
 //int factor = 90;//just add this in order to get back to a servoWrite value of 0-180
 int dir = 0;
+float firstPos= calculateAngle();
+    servos[0].write(firstPos);
   int curAngle = servos[0].read();
-  int newAngle= calculateAngle();;
+ // Serial.println(curAngle);
+
+  int newAngle;
   float dAngle = ampMax / steps;
   if (curAngle + dAngle > (ampMax+90) ) {
     dir = -1;
