@@ -13,7 +13,7 @@ ServoWave servoWave;
 
 void setup(){
   Serial.begin(9600);
-  servoWave = ServoWave(15, 90, PI/3, 2, 90);
+  servoWave = ServoWave(15, 90, 20, 2, 90);
   //   int _numServos, int _amplitude, long _period, int _wavelength
   
  //numservos = number of servos in the unit

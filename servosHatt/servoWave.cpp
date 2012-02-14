@@ -189,30 +189,41 @@ void ServoWave::move(){
 
 
 int ServoWave::calculateAngle(){
-
+//
   if(amplitude> lastPosition||amplitude<=0){
     lastPosition =amplitude;
 
-    amplitude+=1;//180/wavelength; 
+    amplitude+=1*period;//180/wavelength; 
 
   }
 
   if(amplitude < lastPosition||amplitude>=180){
     lastPosition = amplitude;
 
-    amplitude-=1;//180/wavelength; 
+    amplitude-=1*period;//180/wavelength; 
 
     //try to add more steps
     //change 180 to be a different steps
     //set current servos to zero and return
   }
+
+
+//  for(int i=0;i<numServos;i++){
+//  period =period - radians(i*millis())*PI/6;
+//  //PI/6 will actually be the period
+//  
+//  amplitude = sin(radians(period));
+//  Serial.print("amp=");
+//  Serial.print(amplitude);
+ 
   return amplitude;
   //  servos[0].write(amplitude);
+
 }
 
 
 //how to control the speed
 //how to build in trig? 
 //how to control wavelength? 
-
+//why isnT the steps thing working at all.
 
