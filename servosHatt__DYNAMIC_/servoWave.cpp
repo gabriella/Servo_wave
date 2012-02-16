@@ -103,14 +103,15 @@ int ServoWave::calculateAngle(){
   if(amplitude> lastPosition||amplitude<=0){
     lastPosition =amplitude;
 
-    amplitude+=period;//180/wavelength; 
+    amplitude+=5;//180/wavelength; 
   }
 
   if(amplitude < lastPosition||amplitude>=180){
     lastPosition = amplitude;
 
-    amplitude-=period;//180/wavelength; 
+    amplitude-=5;//180/wavelength; 
   }
+  return amplitude;
 }
 
 //how to control the speed
