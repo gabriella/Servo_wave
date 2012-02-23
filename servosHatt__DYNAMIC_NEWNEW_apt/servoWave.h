@@ -3,11 +3,8 @@
 #include <Servo.h>
 #include "Arduino.h"
 
-
-
 class ServoWave //ServoManager
 //collection of functions and variables
-
 
 {
   

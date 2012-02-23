@@ -15,18 +15,21 @@ ServoWave::ServoWave(int _numServos, float _angle, unsigned long _period, int _w
   wavelength = _wavelength;//how many servos long the wave will be
   ampMax=_ampMax;
   //long unsigned periodBis = period;
-  float p = 0.5;
+  
+
+  float a=0;
+   p = 0.5;
   //int total = int(TWO_PI/0.01);//total num of index pioints, until the amplitude is back at zero
-  int numServos = _numServos;
+   numServos = _numServos;
   //set currentServo to 0
-  int currentServo = 0;
-  int lastPosition=-1;
-  int steps = 5;
+   currentServo = 0;
+   lastPosition=-1;
+   steps = 5;
   long previousMillis = 0;
   long lastUpdatedAt = millis();
   
-  int TOTAL_INDICES=200;
-  int TOTAL_NODES=10;
+   TOTAL_INDICES=200;
+   TOTAL_NODES=10;
   //initialize servoPosition array
 
 
@@ -35,17 +38,8 @@ ServoWave::ServoWave(int _numServos, float _angle, unsigned long _period, int _w
     servoPositions[i] = 90; // starting position for all servos. could be passed as an argument     
   }
 
-
-
-
-
-//float wave[200]= wave[200] ;
-//  int index[10]=index[10];
-  float a=0;
-
-
   for (int i = 0; i < TOTAL_INDICES; i++) {
-    wave[i] = (sin(a) + 1.0) * 180.0;
+    wave[i] = (sin(a) + 1.0) * 60.0;
     a+=0.05;
     Serial.println(wave[i]);
   }
@@ -58,9 +52,11 @@ void ServoWave::update(){
   for (int i=0;i<TOTAL_NODES;i++) {
     Serial.print((float)wave[index[i]]);
     Serial.print(" ");
-    Serial.println(index[i]);
+    Serial.print(index[i]);
+    Serial.print(" ");
     index[i] = (index[i]+1) % TOTAL_INDICES;
   }
+  Serial.println();
 }
 
 
@@ -80,9 +76,9 @@ void ServoWave::addServo(Servo servo, int startingPosition){
 
 
 void ServoWave::move(){
-  //  for (int i=0;i<10;i++){
-  //    servos[i].write(wave[index[i]]); 
-  //  }
+   for (int i=0;i<10;i++){
+     servos[i].write(wave[index[i]]); 
+ }
 }
 int ServoWave::calculateAngle(){
 }
