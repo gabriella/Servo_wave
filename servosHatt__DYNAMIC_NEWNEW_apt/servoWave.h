@@ -33,7 +33,7 @@ class ServoWave //ServoManager
   long lastUpdatedAt;
     int index[10];//index of number of servos per wavelength
   int total;
-  float wave[628];
+  float wave[200];
   //float wave[TWO_PI/0.01];
   float p;//make this period
   int TOTAL_INDICES;
