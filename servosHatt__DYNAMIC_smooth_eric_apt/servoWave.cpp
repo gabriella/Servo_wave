@@ -1,7 +1,5 @@
-#include "servoWave.h"
-//#include <Metro.h>
+#include "ServoWave.h"
 
-//Metro metro = Metro(servoWave.period);
 
 //constructor with four argiuments about the wave
 ServoWave::ServoWave() {
@@ -14,15 +12,12 @@ ServoWave::~ServoWave() {
   delete servos;
 }
 
-ServoWave::ServoWave(int _numServos, int _angle, unsigned long _period, int _wavelength, int _ampMax){
-
+ServoWave::ServoWave(int _numServos, int _angle, long _period, int _wavelength, int _ampMax){
   numServos = _numServos;//servos of the whole unit
   angle = _angle;//height of wave 
   period = _period; //in milliseconds
   wavelength = _wavelength;//how many servos long the wave will be
   ampMax=_ampMax;
-//long unsigned periodBis = period;
-  
 
   //initialize the servos
   //servoPositions = new int[numServos];
@@ -33,9 +28,6 @@ ServoWave::ServoWave(int _numServos, int _angle, unsigned long _period, int _wav
   int currentServo = 0;
   int lastPosition=-1;
   int steps = 5;
-  long previousMillis = 0;
-  long lastUpdatedAt = millis();
-
 
   //initialize servoPosition array
   for(int i=0;i<numServos;i++){//wtf
@@ -43,9 +35,6 @@ ServoWave::ServoWave(int _numServos, int _angle, unsigned long _period, int _wav
     //(angle)
   }
 }
-
-
-
 void ServoWave::addServo(Servo servo){
   servos[currentServo]=servo;
   currentServo++; 
@@ -65,81 +54,71 @@ void ServoWave::move(){
   int dir = 0;
 
   //Serial.println(curAngle);
-  int targetAngle=calculateAngle();
-  servos[0].write(targetAngle);
+  int newAngle=calculateAngle();
+  servos[0].write(newAngle);
   int curAngle = servos[0].read();
 
   float dAngle =1;//  ampMax / steps;//distance of one unit to be changed;
+  //  Serial.print(" steps = ");
+  //  Serial.print(steps);
+  //  Serial.print(" ampmax = ");
+  //  Serial.print(ampMax);
+  // Serial.print(" dangle (ampmax/steps) = ");
+  // Serial.println(dAngle);
 
-  if (curAngle >targetAngle) {
+  if ((curAngle + dAngle) > (ampMax+90) ) {
     dir = -1;
     //newAngle = curAngle - dAngle;
   } 
-  else if (curAngle  < targetAngle ) {
+  else if ((curAngle + dAngle) < (90-ampMax) ) {
     // newAngle = curAngle + dAngle;
     dir=1;
   }
-  Serial.print(" dir:");
-  Serial.print(dir);
+ // Serial.print(" dir:");
+ // Serial.print(dir);
 
-unsigned long currentMillis = currentMillis;
-
-//Serial.println("times up");
-
- int newAngle = curAngle+dAngle*dir;
- adjustServos(newAngle);
- 
- if(millis()-lastUpdatedAt>period){
- 
- passDownValues();
- lastUpdatedAt = currentMillis;
- }
- 
-//  previousMillis = currentMillis;
-
-  Serial.print(" newAngle:");
-  Serial.print(newAngle);
+  newAngle = curAngle+dAngle*dir;
+//  Serial.print(" newAngle:");
+//  Serial.print(newAngle);
 
   for(int i=1;i<numServos;i++){
 
     //HERE PUT IN A TIMING FUNCTION TO SEE IF IT WORKS
-
+    
+    
     newAngle = curAngle;
-  curAngle = servos[i].read();
-    
-    
+
+    curAngle = servos[i].read();
     //wait why i'm confused why i did this
     //  Serial.println(
-//     if(metro.check()==1){
-//      Serial.println("metro");
     servos[i].write(newAngle);
     Serial.print(" S:");
     Serial.print(i);
     Serial.print(" ANG:");
-    Serial.print(newAngle);
-   // Serial.print(servos[i].read());
-}
-  
+   // Serial.print(newAngle);
+
+    Serial.print(servos[i].read());
+    //Serial.println();
+  }
   Serial.println();
-  //}
 }
 
 int ServoWave::calculateAngle(){
 //angle= angle -90;
-Serial.println(lastPosition);
-Serial.println();
+//Serial.println(lastPosition);
+//Serial.println();
   if(angle> lastPosition||angle<=90-ampMax){
     lastPosition =angle;
 
-    angle+=1;//numServos/wavelength;//180/wavelength; 
+    angle+=1;//180/wavelength; 
   }
 
   if(angle < lastPosition||angle>=90+ampMax){
     lastPosition = angle;
 
-    angle-=1;//numServos/wavelength;//180/wavelength; 
+    angle-=1;//180/wavelength; 
   }
-  
+ 
   return angle;
 }
 
@@ -148,21 +127,3 @@ Serial.println();
 //how to control wavelength? 
 //why isnT the steps thing working at all.
 
-void ServoWave::passDownValues(){
- int tmp = servoAngles [14];
-  for (int i=14;i>0;i--){
- servoAngles[i] = servoAngles[i-1];
-  }
-  servoAngles[0]=tmp;
- // servoAngles[0]=firstValue;
-}
-
-void ServoWave::adjustServos(int curA){
- servos[currentServo].write(servoAngles[currentServo]);
-
-currentServo++;
-if(currentServo>numServos-1){
- currentServo=0;
-passDownValues(); 
-}
-}

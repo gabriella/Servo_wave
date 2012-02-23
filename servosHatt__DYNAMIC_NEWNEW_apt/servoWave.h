@@ -2,7 +2,7 @@
 #define ServoWave_h
 #include <Servo.h>
 #include "Arduino.h"
-//#include "Metro.h"
+
 
 
 class ServoWave //ServoManager
@@ -14,13 +14,13 @@ class ServoWave //ServoManager
   public:
   //constructor creates an INSTNACE of the class (has the same name as the class)
    ServoWave();
-   ServoWave(int _numServos, int _amplitude, unsigned long _period, int _wavelength, int _ampMax);
+   ServoWave(int _numServos, float _angle, unsigned long _period, int _wavelength, int _ampMax);
    ~ServoWave();
 //   boolean iniitServo(iint indexServo);
 //   boolean iniatAllServo();
    int ampMax;
    int numServos;
-   int angle;//0=90
+   float angle;//0=90
    long period;//time in millis
    int wavelength;//in numb of servos
    Servo servos[15];
@@ -31,7 +31,13 @@ class ServoWave //ServoManager
   int servoAngles[16];//array for remembering the previous 16 angles
   void passDownValues(int firstValue);
   long lastUpdatedAt;
-  
+    int index[10];//index of number of servos per wavelength
+  int total;
+  float wave[628];
+  //float wave[TWO_PI/0.01];
+  float p;//make this period
+  int TOTAL_INDICES;
+    int TOTAL_NODES;
   void adjustServos(int curA);
   void addServo(Servo s);
   void addServo(Servo s, int startPosition);
@@ -39,7 +45,7 @@ class ServoWave //ServoManager
   void update();//where the stuff happens
   int calculateAngle();
   float calcAmp(int per);//wavelength/period
-  Metro metro;
+ // Metro metro;
  long   previousMillis;
   
   //void moveServo(int whichServo, int whatAngle); //servoWave.moveServo(0, 70);

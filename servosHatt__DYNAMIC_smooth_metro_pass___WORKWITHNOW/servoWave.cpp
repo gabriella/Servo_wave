@@ -141,6 +141,11 @@ Serial.println();
   }
   
   return angle;
+
+
+
+//how to oscillate this? 
+
 }
 
 //how to control the speed
