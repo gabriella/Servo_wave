@@ -52,8 +52,8 @@ void ServoWave::update(){
   for (int i=0;i<TOTAL_NODES;i++) {
     Serial.print((float)wave[index[i]]);
     Serial.print(" ");
-    Serial.print(index[i]);
-    Serial.print(" ");
+   // Serial.print(index[i]);
+    //Serial.print(" ");
     index[i] = (index[i]+1) % TOTAL_INDICES;
   }
   Serial.println();
