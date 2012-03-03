@@ -8,7 +8,7 @@ ServoWave::~ServoWave() {
 }
 
 
-ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelength, int _ampMax){
+ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelength, float _ampMax, int indexSpacing){
 
   numServos = _numServos;//servos of the whole unit
   angle = _angle;//height of wave 
@@ -37,21 +37,23 @@ ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelengt
 
 
   for(int i=0;i<numServos;i++){
-    servoPositions[i] = 90; // starting position for all servos. could be passed as an argument     
+    servoPositions[i] = 135; // starting position for all servos. could be passed as an argument     
   }
 
   for (int i = 0; i < TOTAL_INDICES; i++) {
-    wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position
+    //wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position
+    
+    wave[i] = lmap(sin(a),-1.0,1.0,0.0,ampMax);//180.0);
    // a+=0.05;
     a+=period;
     Serial.println(wave[i]);
   }
   for (int i = 0; i < TOTAL_NODES; i++) {
     //int servoSpacing = wavelength/steps;
-    int servoSpacing = (1/wavelength)*50;
+    int servoSpacing = (1/wavelength)*indexSpacing;
     
     //this has to be an index of like period/wavelength - basically it affects the amt of time it takes for the wave to go through x number of servos
-    index[i] = i*wavelength;
+    index[i] = i*indexSpacing;//i*wavelength;
   }
 }
 
@@ -61,7 +63,7 @@ void ServoWave::update(){
     Serial.print(" ");
    // Serial.print(index[i]);
     //Serial.print(" ");
-    index[i] = (index[i]+1) % TOTAL_INDICES;
+    index[i] = (index[i]+1) % wavelength;//TOTAL_INDICES;//numservos in wavelength
   }
   Serial.println();
 }

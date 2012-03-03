@@ -41,7 +41,8 @@ ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelengt
   }
 
   for (int i = 0; i < TOTAL_INDICES; i++) {
-    wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position
+    //wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position
+    wave[i] = lmap(sin(a),-1.0,1.0,0.0,180.0);
    // a+=0.05;
     a+=period;
     Serial.println(wave[i]);
@@ -61,7 +62,7 @@ void ServoWave::update(){
     Serial.print(" ");
    // Serial.print(index[i]);
     //Serial.print(" ");
-    index[i] = (index[i]+1) % TOTAL_INDICES;
+    index[i] = (index[i]+1) % TOTAL_INDICES;//numservos in wavelength
   }
   Serial.println();
 }
