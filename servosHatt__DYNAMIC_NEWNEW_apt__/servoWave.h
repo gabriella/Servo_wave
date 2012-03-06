@@ -34,7 +34,7 @@ float period;//time in millis
   long lastUpdatedAt;
     int index[10];//index of number of servos per wavelength
   int total;
-  float wave[200];
+  float wave[360];
   //float wave[TWO_PI/0.01];
   float p;//make this period
   int TOTAL_INDICES;

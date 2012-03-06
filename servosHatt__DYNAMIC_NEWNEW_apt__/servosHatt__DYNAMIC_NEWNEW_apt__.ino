@@ -16,11 +16,11 @@ int numServos = 12;//this has to be 15
 
 
 void setup(){
-  Serial.begin(57600);
+  Serial.begin(9600);
 
 
 
-  servoWave = ServoWave(numServos, 135, 0.05, 10, 180.0, 5);
+  servoWave = ServoWave(numServos, 135, 0.05, 10, 180.0, 2);
   //   int _numServos, int _amplitude, long _period, int _wavelength, int amp_max
   //Metro metro =Metro(servoWave.period);
 

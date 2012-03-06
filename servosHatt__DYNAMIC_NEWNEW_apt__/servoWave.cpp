@@ -30,20 +30,20 @@ ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelengt
   long previousMillis = 0;
   long lastUpdatedAt = millis();
   
-   TOTAL_INDICES=200;
+   TOTAL_INDICES=360;
    TOTAL_NODES=10;
   //initialize servoPosition array
 
 
 
   for(int i=0;i<numServos;i++){
-    servoPositions[i] = 135; // starting position for all servos. could be passed as an argument     
+    servoPositions[i] = 90; // starting position for all servos. could be passed as an argument     
   }
 
   for (int i = 0; i < TOTAL_INDICES; i++) {
-    //wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position
+   // wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position
     
-    wave[i] = lmap(sin(a),-1.0,1.0,0.0,ampMax);//180.0);
+   wave[i] = lmap(sin(a),-1.0,1.0,0.0,ampMax);//180.0);
    // a+=0.05;
     a+=period;
     Serial.println(wave[i]);
@@ -60,10 +60,11 @@ ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelengt
 void ServoWave::update(){
   for (int i=0;i<TOTAL_NODES;i++) {
     Serial.print((float)wave[index[i]]);
-    Serial.print(" ");
-   // Serial.print(index[i]);
+  Serial.print(" ");
+    //Serial.print(index[i]);
     //Serial.print(" ");
-    index[i] = (index[i]+1) % wavelength;//TOTAL_INDICES;//numservos in wavelength
+    index[i] = (index[i]+1) % TOTAL_INDICES;//TOTAL_INDICES;//numservos in wavelength
+    
   }
   Serial.println();
 }
