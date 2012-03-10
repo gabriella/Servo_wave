@@ -16,12 +16,12 @@ int numServos = 12;//this has to be 15
 
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(57600);
 
 
 
   servoWave = ServoWave(numServos, 135, 0.05, 10, 180.0, 2);
-  //   int _numServos, int _amplitude, long _period, int _wavelength, int amp_max
+  //   int _numServos, int _amplitude, long _period, int _wavelength, int amp_max, int indexSpacing
   //Metro metro =Metro(servoWave.period);
 
 
@@ -39,10 +39,14 @@ void setup(){
 
 void loop(){
   servoWave.ampMax  = map(analogRead(analogPin1), 0,1023, 0,270);
-  servoWave.period  = map(analogRead(analogPin2),0,1023,0,1);//check these values...
+  servoWave.period  = analogRead(analogPin2)*0.005;// map(analogRead(analogPin2),0,1023,0,5);//check these values...
+//Serial.print(" period: ");
+ // Serial.println(servoWave.period);
+  
   servoWave.indexSpacing  = map(analogRead(analogPin3),0,1023, 1,50);
-  
-  
+//  Serial.print(" indexSpacing: ");
+//  Serial.println(servoWave.indexSpacing);
+//  
 
   for(int i=0;i<12;i++){
     servoWave.update(); 
