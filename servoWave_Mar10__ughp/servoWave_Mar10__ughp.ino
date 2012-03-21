@@ -7,8 +7,8 @@ const int analogPin1 = A0 ;
 const int analogPin2 =A1;
 const int analogPin3 = A2;
 
-int periodState = 0;
-int lastPeriodState = 0;
+//int lastPeriodState = 0;
+int lastIndexState = 0;
 
 ServoWave servoWave;
 int numServos = 12;//this has to be 15
@@ -33,12 +33,19 @@ void loop(){
     servoWave.update(); 
     servoWave.move();
     
-    if(servoWave.indexSpacing!=lastPeriodState){
+    if(servoWave.indexSpacing!=lastIndexState){
       //period = perdiodState;
      servoWave.calcIndex(servoWave.indexSpacing);
     Serial.println(servoWave.indexSpacing); 
     }
-     lastPeriodState=servoWave.indexSpacing;
+     lastIndexState=servoWave.indexSpacing;
+     
+//     if(servoWave.period !=lastPeriodState){
+//  servoWave.calcPeriod(servoWave.period);
+// // Serial.println(servoWave.period);
+//}
+//lastPeriodState = servoWave.period;
+
     // Serial.println(periodState);
   }
 }

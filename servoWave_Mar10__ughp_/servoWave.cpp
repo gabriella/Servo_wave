@@ -47,27 +47,23 @@ void ServoWave::update(){
   for (int i=0;i<TOTAL_NODES;i++) {
     //index[i] = i*indexSpacing;//i*wavelength;
     //Serial.print(float(ampMax)/2*(float)wave[index[i]]);
-        Serial.print((ampMax/2*wave[index[i]])); 
-
-    
+        Serial.print((ampMax*wave[index[i]])); 
     //Just fyi, multiplying ampMax by  ((float)wave[index[i]]) is changing the max amplitude
     Serial.print(" ");
     index[i] = (index[i]+1) % TOTAL_INDICES;//TOTAL_INDICES;//numservos in wavelength  
-    //ampMax
-
-
-
   }
   Serial.println();
 }
 
-void ServoWave::calcIndex(float p){
+void ServoWave::calcIndex(float ind){
    for (int i = 0; i < TOTAL_NODES; i++) {
      indexSpacing = p;
     index[i] = (index[i]+(i*indexSpacing))%TOTAL_INDICES;//i*wavelength;
   }
 }
-
+void ServoWave::calcPeriod(float p){
+  
+}
 
 float ServoWave::lmap(float val, float inMin, float inMax, float outMin, float outMax) {
   return outMin + (outMax - outMin) * ((val - inMin) / (inMax - inMin));
@@ -86,7 +82,7 @@ void ServoWave::addServo(Servo servo, int startingPosition){
 
 void ServoWave::move(){
   for (int i=0;i<10;i++){
-    servos[i].write(ampMax/2*wave[index[i]]); 
+    servos[i].write(ampMax*wave[index[i]]); 
     //changing ampMax will change max amplitude
   }
 }

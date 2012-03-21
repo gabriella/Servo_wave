@@ -47,16 +47,10 @@ void ServoWave::update(){
   for (int i=0;i<TOTAL_NODES;i++) {
     //index[i] = i*indexSpacing;//i*wavelength;
     //Serial.print(float(ampMax)/2*(float)wave[index[i]]);
-        Serial.print((ampMax/2*wave[index[i]])); 
-
-    
+        Serial.print((ampMax*wave[index[i]])); 
     //Just fyi, multiplying ampMax by  ((float)wave[index[i]]) is changing the max amplitude
     Serial.print(" ");
     index[i] = (index[i]+1) % TOTAL_INDICES;//TOTAL_INDICES;//numservos in wavelength  
-    //ampMax
-
-
-
   }
   Serial.println();
 }
