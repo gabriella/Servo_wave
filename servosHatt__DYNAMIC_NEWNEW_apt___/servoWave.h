@@ -15,7 +15,9 @@ class ServoWave //ServoManager
    ~ServoWave();
    
    float lmap(float val, float inMin, float inMax, float outMin, float outMax);
-  
+   
+//   boolean iniitServo(iint indexServo);
+//   boolean iniatAllServo();
    float ampMax;
    int indexSpacing;
    int numServos;
@@ -30,6 +32,7 @@ float period;//time in millis
   int servoAngles[16];//array for remembering the previous 16 angles
   void passDownValues(int firstValue);
   long lastUpdatedAt;
+  float a;
     int index[10];//index of number of servos per wavelength
   int total;
   float wave[360];
@@ -42,7 +45,7 @@ float period;//time in millis
   void addServo(Servo s, int startPosition);
   void move();
   void update();//where the stuff happens
-  //int calculateAngle();
+  int calculateAngle();
   float calcAmp(int per);//wavelength/period
  // Metro metro;
  long   previousMillis;

@@ -7,7 +7,7 @@ ServoWave::~ServoWave() {
   delete servos;
 }
 
-ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelength, float _ampMax, int _indexSpacing){
+ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelength, int _ampMax, int _indexSpacing){
 
   numServos = _numServos;//servos of the whole unit
   angle = _angle;//height of wave 
@@ -31,7 +31,7 @@ ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelengt
 
   for (int i = 0; i < TOTAL_INDICES; i++) {
     // wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position 
-    wave[i] = lmap(sin(a),-1.0,1.0,0.0,ampMax);//180.0);
+    wave[i] = lmap(sin(a),-1.0,1.0,0.0,angle);//180.0);
     a+=period;//
     Serial.println(wave[i]);
   }
@@ -44,9 +44,15 @@ ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelengt
 void ServoWave::update(){
   for (int i=0;i<TOTAL_NODES;i++) {
     //index[i] = i*indexSpacing;//i*wavelength;
-    Serial.print((float)wave[index[i]]);
+    Serial.print(float(ampMax)/2*(float)wave[index[i]]);
+    
+    //Just fyi, multiplying ampMax by  ((float)wave[index[i]]) is changing the max amplitude
     Serial.print(" ");
     index[i] = (index[i]+1) % TOTAL_INDICES;//TOTAL_INDICES;//numservos in wavelength  
+    //ampMax
+
+
+
   }
   Serial.println();
 }
@@ -68,7 +74,9 @@ void ServoWave::addServo(Servo servo, int startingPosition){
 
 void ServoWave::move(){
   for (int i=0;i<10;i++){
-    servos[i].write(wave[index[i]]); 
+    servos[i].write(ampMax*wave[index[i]]); 
+    
+    //changing ampMax will change max amplitude
   }
 }
 

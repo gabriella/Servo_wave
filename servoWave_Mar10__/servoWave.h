@@ -11,12 +11,13 @@ class ServoWave //ServoManager
   public:
   //constructor creates an INSTNACE of the class (has the same name as the class)
    ServoWave();
-   ServoWave(int _numServos, float _angle, float _period, int _wavelength, float _ampMax, int _indexSpacing);
+   ServoWave(int _numServos, float _angle, float _period, int _wavelength, int _ampMax, int _indexSpacing);
    ~ServoWave();
    
    float lmap(float val, float inMin, float inMax, float outMin, float outMax);
   
-   float ampMax;
+
+   int ampMax;
    int indexSpacing;
    int numServos;
    float angle;//0=90
@@ -29,6 +30,8 @@ float period;//time in millis
   int servoPositions[12];//array of ints representing the current pos of all servos
   int servoAngles[16];//array for remembering the previous 16 angles
   void passDownValues(int firstValue);
+  
+    void calcIndex(float p);
   long lastUpdatedAt;
     int index[10];//index of number of servos per wavelength
   int total;

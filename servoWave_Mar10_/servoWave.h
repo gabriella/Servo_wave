@@ -11,12 +11,12 @@ class ServoWave //ServoManager
   public:
   //constructor creates an INSTNACE of the class (has the same name as the class)
    ServoWave();
-   ServoWave(int _numServos, float _angle, float _period, int _wavelength, float _ampMax, int _indexSpacing);
+   ServoWave(int _numServos, float _angle, float _period, int _wavelength, int _ampMax, int _indexSpacing);
    ~ServoWave();
    
    float lmap(float val, float inMin, float inMax, float outMin, float outMax);
   
-   float ampMax;
+   int ampMax;
    int indexSpacing;
    int numServos;
    float angle;//0=90
