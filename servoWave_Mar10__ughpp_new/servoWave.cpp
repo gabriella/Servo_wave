@@ -28,60 +28,27 @@ ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelengt
   for(int i=0;i<numServos;i++){
     servoPositions[i] = 90; // starting position for all servos. could be passed as an argument     
   }
-
-  for (int i = 0; i < TOTAL_INDICES; i++) {
-    // wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position 
-    wave[i] = lmap(sin(a),-1.0,1.0,0.0,ampMax);//180.0);
-    a+=0.1;//
-   // Serial.println(wave[i]);
-  }
-
-  for (int i = 0; i < TOTAL_NODES; i++) {
-    index[i] = i*indexSpacing%TOTAL_INDICES;//i*wavelength;
-  }
-  TOTAL_INDICES=TWO_PI/period;
-  
-  
+  TOTAL_INDICES=TWO_PI/period;//TWO_PI/period;
+ // TOTAL_INDICES = 0.125;
+  Serial.println(TOTAL_INDICES);
+  Serial.println(a);
+  Serial.println(period);
+  Serial.println(ampMax);
+  Serial.println(angle); 
 }
-  
 
 void ServoWave::update(){
-       // Serial.print(ampMax);
-//  for (int i=0;i<TOTAL_NODES;i++) {
-//    //index[i] = i*indexSpacing;//i*wavelength;
-//    //Serial.print(float(ampMax)/2*(float)wave[index[i]]);
-//        Serial.print((ampMax*wave[index[i]])); 
-//    //Just fyi, multiplying ampMax by  ((float)wave[index[i]]) is changing the max amplitude
-//    Serial.print(" ");
-//    index[i] = (index[i]+1) % TOTAL_INDICES;//TOTAL_INDICES;//numservos in wavelength  
-//  }
-
+int amp = 10;
 a +=0.02;
 float x = a;
 for (int i=0;i<TOTAL_NODES;i++){
- wave[i] = lmap(sin(x*period),-1.0,1.0,0.0,angle);
-     //wave[i] = lmap(wave[i],-1.0,1.0,0.0,ampMax);//180.0);
+
+wave[i] = lmap(sin((x*period)*amp), -1.0,1.0, 0.0, 180.0) ;
+  x+=TOTAL_INDICES; 
  Serial.print(wave[i]);
  Serial.print(" ");
-x+=TOTAL_INDICES; 
 }
   Serial.println();
-}
-
-void ServoWave::calcIndex(float p){
-   for (int i = 0; i < TOTAL_NODES; i++) {
-     indexSpacing = p;
-    index[i] = (index[i]+(i*indexSpacing))%TOTAL_INDICES;//i*wavelength;
-  }
-}
-void ServoWave::calcPeriod(float per){
-//    TOTAL_INDICES=TWO_PI/per;//total num of index pioints, until the amplitude is back at zero
-//     for (int i = 0; i < TOTAL_INDICES; i++) {
-//    // wave[i] = (sin(a) + 1.0) * ampMax;//ampMax defines the amount it strays from the 0 position 
-//    wave[i] = lmap(sin(a),-1.0,1.0,0.0,angle);//180.0);
-//    a+=per;//
-//   
-//  }
 }
 
 float ServoWave::lmap(float val, float inMin, float inMax, float outMin, float outMax) {

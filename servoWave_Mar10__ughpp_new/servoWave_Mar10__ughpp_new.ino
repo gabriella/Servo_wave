@@ -33,19 +33,7 @@ void loop(){
     servoWave.update(); 
     servoWave.move();
     
-    if(servoWave.indexSpacing!=lastIndexState){
-      //period = perdiodState;
-     servoWave.calcIndex(servoWave.indexSpacing);
-    //Serial.println(servoWave.indexSpacing); 
-    }
-     lastIndexState=servoWave.indexSpacing;
-     
-     if(servoWave.period !=lastPeriodState){
-  servoWave.calcPeriod(servoWave.period);
- // Serial.println(servoWave.period);
-}
-lastPeriodState = servoWave.period;
-
+   
     // Serial.println(periodState);
   }
   delay(10);
