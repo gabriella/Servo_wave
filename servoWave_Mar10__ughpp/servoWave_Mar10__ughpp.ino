@@ -42,7 +42,7 @@ void loop(){
      
      if(servoWave.period !=lastPeriodState){
   servoWave.calcPeriod(servoWave.period);
-  Serial.println(servoWave.period);
+  //Serial.println(servoWave.period);
 }
 lastPeriodState = servoWave.period;
 

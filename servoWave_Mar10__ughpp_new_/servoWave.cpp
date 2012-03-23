@@ -7,47 +7,56 @@ ServoWave::~ServoWave() {
   delete servos;
 }
 
-ServoWave::ServoWave(int _numServos, float _angle, float _period, int _wavelength, int _ampMax, int _indexSpacing){
+ServoWave::ServoWave(int _numServos, float _theta,  float _dx, int _ampMax, float _speed){
 
+  //theta = theta, period = speed, amp = amp, 
+
+  
   numServos = _numServos;//servos of the whole unit
-  angle = _angle;//height of wave 
-  period = _period; //in milliseconds
-  wavelength = _wavelength;//how many servos long the wave will be
+  theta = _theta;//height of wave 
+ // period = _period; //in milliseconds
+  dx = _dx;//how many servos long the wave will be
   ampMax=_ampMax;
-  indexSpacing=_indexSpacing;
-   a=0;
+  speed = _speed;
+  //indexSpacing=_indexSpacing;
+  
+   theta=0;
+   dx = 0.3;
+   speed = 0.009;
   numServos = _numServos;
+  
   currentServo = 0;//set currentServo to 0
   long previousMillis = 0;
   long lastUpdatedAt = millis();
-
-  //TOTAL_INDICES=TWO_PI/0.1;//total num of index pioints, until the amplitude is back at zero
 
   TOTAL_NODES=10;
   
   //initialize servoPosition array
   for(int i=0;i<numServos;i++){
-    servoPositions[i] = 90; // starting position for all servos. could be passed as an argument     
+    servoPositions[i] = 90.00; // starting position for all servos. could be passed as an argument     
   }
-  TOTAL_INDICES=TWO_PI/period*indexSpacing;//TWO_PI/period;
-   // TOTAL_INDICES = 0.125;
 
-  Serial.println(TOTAL_INDICES);
-  Serial.println(a);
-  Serial.println(period);
+  Serial.println(theta);
+  Serial.println(dx);
   Serial.println(ampMax);
-  Serial.println(angle); 
+  Serial.println(speed); 
 }
 
 void ServoWave::update(){
-int amp = 10;
-a +=0.02;
-float x = a;
-for (int i=0;i<TOTAL_NODES;i++){
+//  Serial.println(theta);
+//  Serial.println(dx);
+//  Serial.println(ampMax);
+//  Serial.println(speed); 
+  
+theta +=speed;
+float x = theta;
+//Serial.print
+for (int i=0;i<numServos;i++){
 
-wave[i] = lmap(sin((x*period)*amp), -1.0,1.0, 0.0, 180.0) ;
-  x+=TOTAL_INDICES; 
- Serial.print(wave[i]);
+servoPositions[i] = sin(x)*ampMax;
+x+=dx;
+ 
+ Serial.print(90+servoPositions[i]);
  Serial.print(" ");
 }
   Serial.println();
@@ -70,9 +79,7 @@ void ServoWave::addServo(Servo servo, int startingPosition){
 
 void ServoWave::move(){
   for (int i=0;i<10;i++){
-   // servos[i].write(ampMax/2*wave[index[i]]); 
-   servos[i].write(wave[i]);
-    //changing ampMax will change max amplitude
+   servos[i].write(90+servoPositions[i]);
   }
 }
 
