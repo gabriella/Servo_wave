@@ -50,16 +50,16 @@ void ServoWave::update(){
   
 theta +=speed;
 float x = theta;
-
+//Serial.print
 for (int i=0;i<numServos;i++){
 
-servoPositions[i] = sin(x)*ampMax;
+//servoPositions[i] = sin(x)*ampMax;
 x+=dx;
  
- Serial.print(90+servoPositions[i]);
- Serial.print(" ");
+// Serial.print(90+servoPositions[i]);
+ //Serial.print(" ");
 }
-  Serial.println();
+ // Serial.println();
 }
 
 float ServoWave::lmap(float val, float inMin, float inMax, float outMin, float outMax) {

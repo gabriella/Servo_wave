@@ -26,15 +26,15 @@ void setup(){
 }
 
 void loop(){
- servoWave.ampMax  = map(analogRead(analogPin1), 0,1023, 0,90);
-servoWave.dx = analogRead(analogPin3)/1000.00;// map(analogRead(analogPin2),0,1023,0,5);//check these values...
- servoWave.speed  = map(analogRead(analogPin2),0,1023, 0,200)/1000.00;
-Serial.print("amplitude:");
-Serial.print(servoWave.ampMax);
-Serial.print(" dx:");
-Serial.print(servoWave.dx);
-Serial.print(" speed:");
-Serial.println(servoWave.speed);
+//  servoWave.ampMax  = map(analogRead(analogPin1), 0,1023, 0,90);
+//servoWave.dx = analogRead(analogPin3)/100000.00000;// map(analogRead(analogPin2),0,1023,0,5);//check these values...
+//  servoWave.speed  = map(analogRead(analogPin2),0,1023, 0,200)/10000.0000;
+//Serial.print("amplitude:");
+//Serial.print(servoWave.ampMax);
+//Serial.print(" dx:");
+//Serial.print(servoWave.dx);
+//Serial.print(" speed:");
+//Serial.println(servoWave.speed);
   for(int i=0;i<12;i++){
     servoWave.update(); 
     servoWave.move();
