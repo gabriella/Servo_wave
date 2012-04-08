@@ -1,7 +1,7 @@
 #include <Servo.h>
 
 #include "ServoWave.h"
-#include <Metro.h>
+//#include <Metro.h>
 
 const int analogPin1 = A0 ;
 const int analogPin2 =A1;
@@ -28,14 +28,18 @@ void setup(){
 
 void loop(){
 
+  //1 increases amplitude. 2 decreases amp
+  //3 increases period, 4 decreases
+  //5 increases speed, 6 decreases
+  
   if(Serial.available()){
     incomingData=Serial.read();
-    if(incomingData=='x'){
+    if(incomingData=='1'){
       servoWave.ampMax++; 
       Serial.print(" ampMax = ");
       Serial.println(servoWave.ampMax);      
     }
-    else if(incomingData=='z'){
+    else if(incomingData=='2'){
       servoWave.ampMax--;
       Serial.print(" ampMax = ");
       Serial.println(servoWave.ampMax);
@@ -47,12 +51,12 @@ void loop(){
       servoWave.ampMax=  10;  
     }
 
-    if(incomingData=='s'){
+    if(incomingData=='3'){
       servoWave.dx=servoWave.dx+0.01; 
       Serial.print(" dx = ");
       Serial.println(servoWave.dx);      
     }
-    else if(incomingData=='a'){
+    else if(incomingData=='4'){
       servoWave.dx=servoWave.dx-0.01;
       Serial.print(" dx = ");
       Serial.println(servoWave.dx);
@@ -65,12 +69,12 @@ void loop(){
       servoWave.dx=  .10;  
     }
 
-    if(incomingData=='w'){
+    if(incomingData=='5'){
       servoWave.speed=servoWave.speed-0.01;
       Serial.print(" speed = ");
       Serial.println(servoWave.speed);      
     }
-    else if(incomingData=='q'){
+    else if(incomingData=='6'){
       servoWave.speed=servoWave.speed+0.01;
       Serial.print(" speed = ");
       Serial.println(servoWave.speed);
@@ -83,15 +87,7 @@ void loop(){
     }
   }
 
-  // servoWave.ampMax  = map(analogRead(analogPin1), 0,1023, 0,90);
-  //servoWave.dx = analogRead(analogPin3)/1000.00;// map(analogRead(analogPin2),0,1023,0,5);//check these values...
-  // servoWave.speed  = map(analogRead(analogPin2),0,1023, 0,200)/1000.00;
-  //Serial.print("amplitude:");
-  //Serial.print(servoWave.ampMax);
-  //Serial.print(" dx:");
-  //Serial.print(servoWave.dx);
-  //Serial.print(" speed:");
-  //Serial.println(servoWave.speed);
+
   for(int i=0;i<12;i++){
     servoWave.update(); 
     servoWave.move();
